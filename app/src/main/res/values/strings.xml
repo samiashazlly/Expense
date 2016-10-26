@@ -7,4 +7,9 @@
     <string name="item_title">Title</string>
     <string name="item_description">Description</string>
     <string name="icon">icon</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

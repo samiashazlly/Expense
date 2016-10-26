@@ -1,18 +1,22 @@
 package com.samia.expense;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Expense extends ActionBarActivity {
+public class Expense extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
@@ -21,12 +25,32 @@ public class Expense extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
+        /////////////toolbar//////////////////////////////
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
+        ///////////////////RecyclerView///////////////////
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        adapter = new RecyclerViewAdapter(this,getData());
+        adapter = new RecyclerViewAdapter(this, getData());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        ////////////////////////FAB///////////////////
+        FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.fab);
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Expense.this, "Floating Action Button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ///////////////Navigation Drawer//////////////////////
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navDrawer);
+        drawerFragment.setUp((DrawerLayout)findViewById(R.id.drawer_layout), toolbar);
+
     }
 
     public static List<ItemInfo> getData() {
@@ -36,7 +60,7 @@ public class Expense extends ActionBarActivity {
                 "Export to e-Mail", "Summery Report"};
         String[] descriptions = {"Add your budget", "View expense history",
                 "Export expense to a Mail", "View summery report"};
-        for (int i = 0; i < icons.length&&i < titles.length && i < descriptions.length ; i++){
+        for (int i = 0; i < icons.length && i < titles.length && i < descriptions.length; i++) {
             ItemInfo current = new ItemInfo();
             current.itemId = icons[i];
             current.title = titles[i];
