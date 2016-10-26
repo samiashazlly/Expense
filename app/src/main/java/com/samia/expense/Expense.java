@@ -62,9 +62,9 @@ public class Expense extends AppCompatActivity {
                 "Export expense to a Mail", "View summery report"};
         for (int i = 0; i < icons.length && i < titles.length && i < descriptions.length; i++) {
             ItemInfo current = new ItemInfo();
-            current.itemId = icons[i];
-            current.title = titles[i];
-            current.description = descriptions[i];
+            current.setItemId(icons[i]);
+            current.setTitle(titles[i]);
+            current.setDescription(descriptions[i]);
             data.add(current);
         }
         return data;
