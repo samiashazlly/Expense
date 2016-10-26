@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,6 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.title.setText(current.title);
         holder.description.setText(current.description);
         holder.icon.setImageResource(current.itemId);
+
     }
 
     @Override
@@ -42,7 +44,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return data.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView title;
         TextView description;
         ImageView icon;
@@ -51,6 +53,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             title = (TextView)itemView.findViewById(R.id.item_title);
             description = (TextView)itemView.findViewById(R.id.item_description);
             icon = (ImageView)itemView.findViewById(R.id.item_icon);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(v.getContext(),"item clicked at "+ getAdapterPosition(),Toast.LENGTH_SHORT).show();
         }
     }
 }
